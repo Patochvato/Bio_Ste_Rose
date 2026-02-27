@@ -27,12 +27,12 @@ wheels/
 instance/
 .webassets-cache
 
-# Données
-donnees.xlsx
-*.xlsx
+# Données - Commenté pour permettre le déploiement
+# donnees.xlsx
+# *.xlsx
 ~$*.xlsx
 
-# Images (commentez si vous voulez les versionner)
+# Images - Commenté pour permettre le déploiement
 # images/
 # *.jpg
 # *.jpeg
