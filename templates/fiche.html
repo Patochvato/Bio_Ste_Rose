@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ espece.nom }} - Bio Sainte-Rose</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="{{ url_for('categorie', nom_categorie=espece.categorie) }}" class="back-link">← Retour à {{ espece.categorie }}</a>
+            <h1>{{ espece.nom }}</h1>
+        </header>
+
+        <main>
+            <div class="fiche-container">
+                <!-- Image principale -->
+                <div class="fiche-image-container">
+                    {% if espece.image %}
+                        <img src="{{ url_for('serve_image', filename=espece.image) }}" 
+                             alt="{{ espece.nom }}" 
+                             class="fiche-image"
+                             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22300%22%3E%3Crect fill=%22%23f0f0f0%22 width=%22400%22 height=%22300%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2218%22 text-anchor=%22middle%22 fill=%22%23999%22%3EImage non disponible%3C/text%3E%3C/svg%3E'">
+                    {% else %}
+                        <div class="fiche-no-image">
+                            <span>📷</span>
+                            <p>Aucune image disponible</p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <!-- Formulaire d'édition -->
+                <div class="fiche-info">
+                    <form method="POST" action="{{ url_for('modifier', espece_id=espece.id) }}" id="especeForm">
+                        <div class="info-section">
+                            <div class="info-item">
+                                <span class="info-label">ID:</span>
+                                <span class="info-value">{{ espece.id }}</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-label">Catégorie:</span>
+                                <span class="info-value badge">{{ espece.categorie }}</span>
+                            </div>
+                            <div class="info-item">
+                                <label class="info-label" for="nom">Nom commun:</label>
+                                <input type="text" 
+                                       id="nom" 
+                                       name="nom" 
+                                       class="info-input" 
+                                       value="{{ espece.nom }}" 
+                                       placeholder="Nom commun de l'espèce">
+                            </div>
+                            <div class="info-item">
+                                <label class="info-label" for="espece">Nom scientifique:</label>
+                                <input type="text" 
+                                       id="espece" 
+                                       name="espece" 
+                                       class="info-input espece-scientifique" 
+                                       value="{{ espece.espece if espece.espece else '' }}" 
+                                       placeholder="Nom scientifique (latin)">
+                            </div>
+                        </div>
+
+                        <!-- Section description -->
+                        <div class="description-section">
+                            <h3>Description</h3>
+                            <textarea 
+                                name="description" 
+                                id="description" 
+                                rows="10" 
+                                placeholder="Ajoutez une description pour cette espèce..."
+                            >{{ espece.description if espece.description else '' }}</textarea>
+                            
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    💾 Enregistrer
+                                </button>
+                                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                                    ↺ Annuler
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Sauvegarde les valeurs originales pour la fonction d'annulation
+        const originalNom = document.getElementById('nom').value;
+        const originalEspece = document.getElementById('espece').value;
+        const originalDescription = document.getElementById('description').value;
+        
+        function resetForm() {
+            document.getElementById('nom').value = originalNom;
+            document.getElementById('espece').value = originalEspece;
+            document.getElementById('description').value = originalDescription;
+        }
+
+        // Confirmation avant de quitter si des modifications non sauvegardées existent
+        window.addEventListener('beforeunload', function (e) {
+            const currentNom = document.getElementById('nom').value;
+            const currentEspece = document.getElementById('espece').value;
+            const currentDescription = document.getElementById('description').value;
+            
+            if (currentNom !== originalNom || 
+                currentEspece !== originalEspece || 
+                currentDescription !== originalDescription) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+
+        // Réinitialise la vérification après la soumission
+        document.getElementById('especeForm').addEventListener('submit', function() {
+            window.removeEventListener('beforeunload', null);
+        });
+    </script>
+</body>
+</html>

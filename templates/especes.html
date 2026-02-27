@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ categorie }} - Bio Sainte-Rose</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="{{ url_for('index') }}" class="back-link">← Retour aux catégories</a>
+            <h1>{{ categorie }}</h1>
+        </header>
+
+        <main>
+            <div class="page-header">
+                <h2>{{ especes|length }} espèce(s)</h2>
+                <a href="{{ url_for('ajouter') }}" class="btn btn-primary btn-add">
+                    ➕ Nouvelle espèce
+                </a>
+            </div>
+            
+            {% if especes %}
+                <div class="especes-grid">
+                    {% for espece in especes %}
+                        <a href="{{ url_for('fiche', espece_id=espece.id) }}" class="espece-card">
+                            {% if espece.image %}
+                                <div class="espece-image" style="background-image: url('{{ url_for('serve_image', filename=espece.image) }}');">
+                                    <div class="espece-overlay">
+                                        <span>Voir la fiche</span>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="espece-image no-image">
+                                    <span>📷</span>
+                                </div>
+                            {% endif %}
+                            <div class="espece-info">
+                                <h3>{{ espece.nom }}</h3>
+                                {% if espece.espece %}
+                                    <p class="espece-scientifique">{{ espece.espece }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>Aucune espèce dans cette catégorie.</p>
+                </div>
+            {% endif %}
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

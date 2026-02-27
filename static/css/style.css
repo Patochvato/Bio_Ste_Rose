@@ -1,0 +1,568 @@
+/* Styles généraux */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #0077be;
+    --secondary-color: #00a8e8;
+    --accent-color: #00c9ff;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg-light: #f5f7fa;
+    --bg-white: #ffffff;
+    --border-color: #e1e8ed;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: var(--text-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--bg-white);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+
+/* Header */
+header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 30px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.back-link {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    opacity: 0.9;
+    transition: opacity 0.3s;
+}
+
+.back-link:hover {
+    opacity: 1;
+}
+
+/* Main content */
+main {
+    padding: 40px;
+    min-height: 400px;
+}
+
+main h2 {
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    font-size: 1.8rem;
+}
+
+/* Page header avec bouton */
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.page-header h2 {
+    margin: 0;
+}
+
+.btn-add {
+    white-space: nowrap;
+}
+
+/* Categories Grid */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.category-card {
+    background: var(--bg-light);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    color: var(--text-dark);
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.category-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* Espèces Grid */
+.especes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.espece-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-dark);
+    box-shadow: var(--shadow);
+    transition: all 0.3s;
+}
+
+.espece-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.espece-image {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--bg-light);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.espece-image.no-image {
+    font-size: 4rem;
+}
+
+.espece-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 119, 190, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.espece-card:hover .espece-overlay {
+    opacity: 1;
+}
+
+.espece-overlay span {
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.espece-info {
+    padding: 20px;
+}
+
+.espece-info h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: var(--text-dark);
+}
+
+.espece-scientifique {
+    font-style: italic;
+    color: var(--text-light);
+    font-size: 0.95rem;
+}
+
+/* Fiche détaillée */
+.fiche-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.fiche-image-container {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.fiche-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    display: block;
+}
+
+.fiche-no-image {
+    width: 100%;
+    height: 400px;
+    background: var(--bg-light);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: var(--text-light);
+}
+
+.fiche-no-image p {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.fiche-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-section {
+    background: var(--bg-light);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.info-item {
+    display: flex;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--text-dark);
+    min-width: 150px;
+}
+
+.info-value {
+    color: var(--text-light);
+    flex: 1;
+}
+
+.info-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: border-color 0.3s;
+    background: white;
+}
+
+.info-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: #fff;
+}
+
+.info-item input.espece-scientifique {
+    font-style: italic;
+}
+
+.badge {
+    background: var(--primary-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+/* Formulaire de description */
+.description-section h3 {
+    margin-bottom: 15px;
+    color: var(--text-dark);
+}
+
+.description-section textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 200px;
+    transition: border-color 0.3s;
+}
+
+.description-section textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    flex: 1;
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.btn-secondary {
+    background: var(--bg-light);
+    color: var(--text-dark);
+    border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--border-color);
+}
+
+.btn-large {
+    flex: none;
+    min-width: 200px;
+}
+
+/* Formulaire d'ajout */
+.add-form {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.form-group small {
+    color: var(--text-light);
+    font-size: 0.85rem;
+    margin-top: -4px;
+}
+
+.form-input,
+.form-textarea {
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-dark);
+    transition: border-color 0.3s;
+    background: white;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.espece-input {
+    font-style: italic;
+}
+
+.form-actions-add {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.form-actions-add .btn {
+    flex: none;
+}
+
+.form-actions-add a {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.empty-state p {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.empty-state code {
+    background: var(--bg-light);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Footer */
+footer {
+    background: var(--bg-light);
+    padding: 20px;
+    text-align: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    main {
+        padding: 20px;
+    }
+
+    .categories-grid,
+    .especes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .fiche-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .fiche-image-container {
+        position: static;
+    }
+
+    .info-item {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .info-label {
+        min-width: auto;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-add {
+        width: 100%;
+    }
+
+    .form-actions-add {
+        flex-direction: column;
+    }
+
+    .form-actions-add .btn {
+        width: 100%;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.category-card,
+.espece-card {
+    animation: fadeIn 0.5s ease-out;
+}

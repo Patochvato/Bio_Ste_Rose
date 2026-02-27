@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio Sainte-Rose - Biodiversité Marine</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐠 Biodiversité Marine</h1>
+            <p class="subtitle">Sainte-Rose, Réunion</p>
+        </header>
+
+        <main>
+            <div class="page-header">
+                <h2>Catégories</h2>
+                <a href="{{ url_for('ajouter') }}" class="btn btn-primary btn-add">
+                    ➕ Nouvelle espèce
+                </a>
+            </div>
+            
+            {% if categories %}
+                <div class="categories-grid">
+                    {% for categorie in categories %}
+                        <a href="{{ url_for('categorie', nom_categorie=categorie) }}" class="category-card">
+                            <div class="category-icon">📁</div>
+                            <h3>{{ categorie }}</h3>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <p>Aucune catégorie disponible.</p>
+                    <p>Veuillez vérifier que le fichier <code>donnees.xlsx</code> existe et contient des données.</p>
+                </div>
+            {% endif %}
+        </main>
+
+        <footer>
+            <p>Application de gestion des fiches de biodiversité marine</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

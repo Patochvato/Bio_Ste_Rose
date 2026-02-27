@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajouter une espèce - Bio Sainte-Rose</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="{{ url_for('index') }}" class="back-link">← Retour à l'accueil</a>
+            <h1>➕ Ajouter une nouvelle espèce</h1>
+        </header>
+
+        <main>
+            <form method="POST" action="{{ url_for('ajouter') }}" class="add-form">
+                <div class="form-grid">
+                    <!-- Nom commun -->
+                    <div class="form-group full-width">
+                        <label for="nom">Nom commun *</label>
+                        <input type="text" 
+                               id="nom" 
+                               name="nom" 
+                               required 
+                               placeholder="Ex: Poisson-perroquet"
+                               class="form-input">
+                    </div>
+
+                    <!-- Catégorie -->
+                    <div class="form-group">
+                        <label for="categorie">Catégorie *</label>
+                        <input type="text" 
+                               id="categorie" 
+                               name="categorie" 
+                               list="categories-list"
+                               required 
+                               placeholder="Ex: Poissons"
+                               class="form-input">
+                        <datalist id="categories-list">
+                            {% for cat in categories %}
+                                <option value="{{ cat }}">
+                            {% endfor %}
+                        </datalist>
+                        <small>Choisissez une catégorie existante ou créez-en une nouvelle</small>
+                    </div>
+
+                    <!-- Nom scientifique -->
+                    <div class="form-group">
+                        <label for="espece">Nom scientifique</label>
+                        <input type="text" 
+                               id="espece" 
+                               name="espece" 
+                               placeholder="Ex: Scarus vetula"
+                               class="form-input espece-input">
+                    </div>
+
+                    <!-- Nom de l'image -->
+                    <div class="form-group full-width">
+                        <label for="image">Nom du fichier image</label>
+                        <input type="text" 
+                               id="image" 
+                               name="image" 
+                               placeholder="Ex: poisson_perroquet.jpg"
+                               class="form-input">
+                        <small>Le fichier doit être présent dans le dossier 'images/'</small>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group full-width">
+                        <label for="description">Description</label>
+                        <textarea id="description" 
+                                  name="description" 
+                                  rows="8"
+                                  placeholder="Décrivez l'espèce, ses caractéristiques, son habitat..."
+                                  class="form-textarea"></textarea>
+                    </div>
+                </div>
+
+                <!-- Boutons d'action -->
+                <div class="form-actions-add">
+                    <button type="submit" class="btn btn-primary btn-large">
+                        ✓ Créer la fiche
+                    </button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary btn-large">
+                        ✕ Annuler
+                    </a>
+                </div>
+            </form>
+        </main>
+
+        <footer>
+            <p>Les champs marqués d'un * sont obligatoires</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
